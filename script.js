@@ -1,11 +1,6 @@
-// ==========================================
-// MEETING WEBSITE - LOGIN & SIGN UP SYSTEM
-// ==========================================
-
-
-// ------------------------------------------
-// GET ELEMENTS
-// ------------------------------------------
+// =========================================
+// ELEMENTS
+// =========================================
 
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
@@ -19,29 +14,26 @@ const goLogin = document.getElementById("goLogin");
 const message = document.getElementById("message");
 
 
-// ------------------------------------------
-// SHOW MESSAGE
-// ------------------------------------------
+// =========================================
+// MESSAGE
+// =========================================
 
-function showMessage(text, type = "error") {
-    if (!message) return;
+function showMessage(text, type = "") {
 
     message.textContent = text;
-    message.className = "message " + type;
+    message.className = "message";
 
-    setTimeout(() => {
-        message.textContent = "";
-        message.className = "message";
-    }, 3500);
+    if (type) {
+        message.classList.add(type);
+    }
 }
 
 
-// ------------------------------------------
-// SWITCH TO LOGIN
-// ------------------------------------------
+// =========================================
+// SHOW LOGIN
+// =========================================
 
 function showLogin() {
-    if (!loginForm || !signupForm) return;
 
     loginForm.classList.remove("hidden");
     signupForm.classList.add("hidden");
@@ -53,12 +45,11 @@ function showLogin() {
 }
 
 
-// ------------------------------------------
-// SWITCH TO SIGN UP
-// ------------------------------------------
+// =========================================
+// SHOW SIGNUP
+// =========================================
 
 function showSignup() {
-    if (!loginForm || !signupForm) return;
 
     signupForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
@@ -70,48 +61,41 @@ function showSignup() {
 }
 
 
-// ------------------------------------------
-// TAB BUTTONS
-// ------------------------------------------
+// =========================================
+// TAB EVENTS
+// =========================================
 
-if (loginTab) {
-    loginTab.addEventListener("click", showLogin);
-}
+loginTab.addEventListener("click", showLogin);
 
-if (signupTab) {
-    signupTab.addEventListener("click", showSignup);
-}
+signupTab.addEventListener("click", showSignup);
 
-if (goSignup) {
-    goSignup.addEventListener("click", showSignup);
-}
+goSignup.addEventListener("click", showSignup);
 
-if (goLogin) {
-    goLogin.addEventListener("click", showLogin);
-}
+goLogin.addEventListener("click", showLogin);
 
 
-// ------------------------------------------
-// SHOW / HIDE PASSWORD
-// ------------------------------------------
+// =========================================
+// SHOW/HIDE PASSWORD
+// =========================================
 
-const passwordButtons = document.querySelectorAll(".toggle-password");
+document.querySelectorAll(".password-toggle").forEach(button => {
 
-passwordButtons.forEach(button => {
+    button.addEventListener("click", () => {
 
-    button.addEventListener("click", function () {
+        const target = document.getElementById(
+            button.dataset.target
+        );
 
-        const targetId = this.getAttribute("data-target");
-        const passwordInput = document.getElementById(targetId);
+        if (target.type === "password") {
 
-        if (!passwordInput) return;
+            target.type = "text";
+            button.textContent = "🙈";
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            this.textContent = "🙈";
         } else {
-            passwordInput.type = "password";
-            this.textContent = "👁";
+
+            target.type = "password";
+            button.textContent = "👁";
+
         }
 
     });
@@ -119,262 +103,257 @@ passwordButtons.forEach(button => {
 });
 
 
-// ------------------------------------------
+// =========================================
 // CREATE ACCOUNT
-// ------------------------------------------
+// =========================================
 
-if (signupForm) {
+signupForm.addEventListener("submit", (event) => {
 
-    signupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-        event.preventDefault();
+    const name =
+        document.getElementById("signupName").value.trim();
 
-        const name = document.getElementById("signupName").value.trim();
-        const phone = document.getElementById("signupPhone").value.trim();
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        const terms = document.getElementById("terms").checked;
+    const phone =
+        document.getElementById("signupPhone").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const terms =
+        document.getElementById("terms").checked;
 
 
-        // Check name
-        if (name.length < 2) {
-            showMessage("Please enter your full name.");
+    // CHECK NAME
+    if (name.length < 2) {
+
+        showMessage(
+            "Please enter your full name.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // CHECK PHONE
+    if (!/^[0-9]{9,15}$/.test(phone)) {
+
+        showMessage(
+            "Please enter a valid telephone number.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // CHECK PASSWORD
+    if (password.length < 6) {
+
+        showMessage(
+            "Password must contain at least 6 characters.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // CHECK PASSWORD MATCH
+    if (password !== confirmPassword) {
+
+        showMessage(
+            "Passwords do not match.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // CHECK TERMS
+    if (!terms) {
+
+        showMessage(
+            "Please agree to the Terms & Conditions.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // CHECK EXISTING ACCOUNT
+    const existingAccount =
+        localStorage.getItem("meetingAccount");
+
+    if (existingAccount) {
+
+        const account =
+            JSON.parse(existingAccount);
+
+        if (account.phone === phone) {
+
+            showMessage(
+                "This telephone number is already registered.",
+                "error"
+            );
+
             return;
         }
+    }
 
 
-        // Check phone
-        if (phone.length < 9) {
-            showMessage("Please enter a valid telephone number.");
-            return;
-        }
+    // CREATE ACCOUNT
+    const account = {
+        name: name,
+        phone: phone,
+        password: password
+    };
 
 
-        // Check password
-        if (password.length < 6) {
-            showMessage("Password must contain at least 6 characters.");
-            return;
-        }
+    // SAVE ACCOUNT
+    localStorage.setItem(
+        "meetingAccount",
+        JSON.stringify(account)
+    );
 
 
-        // Confirm password
-        if (password !== confirmPassword) {
-            showMessage("Passwords do not match.");
-            return;
-        }
+    showMessage(
+        "Account created successfully! Please login.",
+        "success"
+    );
 
 
-        // Terms
-        if (!terms) {
-            showMessage("Please agree to the Terms & Conditions.");
-            return;
-        }
+    signupForm.reset();
 
 
-        // Check whether account already exists
-        const existingUser = localStorage.getItem("meetingUser");
+    // PUT PHONE IN LOGIN FORM
+    setTimeout(() => {
 
-        if (existingUser) {
+        showLogin();
 
-            const user = JSON.parse(existingUser);
+        document.getElementById("loginPhone").value = phone;
 
-            if (user.phone === phone) {
-                showMessage("An account with this telephone number already exists.");
-                return;
-            }
-        }
+    }, 1000);
+
+});
 
 
-        // Create user object
-        const newUser = {
-            name: name,
-            phone: phone,
-            password: password
-        };
-
-
-        // Save user
-        localStorage.setItem("meetingUser", JSON.stringify(newUser));
-
-
-        showMessage("Account created successfully! You can now login.", "success");
-
-
-        // Clear sign-up form
-        signupForm.reset();
-
-
-        // Switch to login after short delay
-        setTimeout(() => {
-            showLogin();
-
-            document.getElementById("loginPhone").value = phone;
-
-        }, 1200);
-
-    });
-
-}
-
-
-// ------------------------------------------
+// =========================================
 // LOGIN
-// ------------------------------------------
+// =========================================
 
-if (loginForm) {
+loginForm.addEventListener("submit", (event) => {
 
-    loginForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-        const phone = document.getElementById("loginPhone").value.trim();
-        const password = document.getElementById("loginPassword").value;
-        const rememberMe = document.getElementById("rememberMe").checked;
+    event.preventDefault();
 
 
-        // Get saved user
-        const savedUser = localStorage.getItem("meetingUser");
+    const phone =
+        document.getElementById("loginPhone").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
 
 
-        if (!savedUser) {
-
-            showMessage("No account found. Please create an account first.");
-
-            return;
-        }
+    // GET ACCOUNT
+    const savedAccount =
+        localStorage.getItem("meetingAccount");
 
 
-        const user = JSON.parse(savedUser);
+    // NO ACCOUNT
+    if (!savedAccount) {
+
+        showMessage(
+            "No account found. Please create an account first.",
+            "error"
+        );
+
+        return;
+    }
 
 
-        // Check phone
-        if (phone !== user.phone) {
-
-            showMessage("Telephone number is incorrect.");
-
-            return;
-        }
+    const account =
+        JSON.parse(savedAccount);
 
 
-        // Check password
-        if (password !== user.password) {
+    // CHECK PHONE
+    if (phone !== account.phone) {
 
-            showMessage("Password is incorrect.");
+        showMessage(
+            "Telephone number is incorrect.",
+            "error"
+        );
 
-            return;
-        }
-
-
-        // Save logged-in user
-        localStorage.setItem("currentUser", JSON.stringify({
-            name: user.name,
-            phone: user.phone,
-            rememberMe: rememberMe
-        }));
+        return;
+    }
 
 
-        showMessage("Login successful! Welcome " + user.name + ".", "success");
+    // CHECK PASSWORD
+    if (password !== account.password) {
+
+        showMessage(
+            "Password is incorrect.",
+            "error"
+        );
+
+        return;
+    }
 
 
-        // Go to home page
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 800);
+    // SAVE CURRENT USER
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+            name: account.name,
+            phone: account.phone
+        })
+    );
 
-    });
 
-}
+    showMessage(
+        "Login successful! Welcome " + account.name + "!",
+        "success"
+    );
 
 
-// ------------------------------------------
+    // GO TO HOME PAGE
+    setTimeout(() => {
+
+        window.location.href = "index.html";
+
+    }, 800);
+
+});
+
+
+// =========================================
 // FORGOT PASSWORD
-// ------------------------------------------
+// =========================================
 
-const forgotPassword = document.getElementById("forgotPassword");
+document.getElementById("forgotPassword")
+    .addEventListener("click", () => {
 
-if (forgotPassword) {
+        const account =
+            localStorage.getItem("meetingAccount");
 
-    forgotPassword.addEventListener("click", function (event) {
+        if (!account) {
 
-        event.preventDefault();
+            showMessage(
+                "No account has been created yet.",
+                "error"
+            );
 
-        const savedUser = localStorage.getItem("meetingUser");
-
-        if (!savedUser) {
-            showMessage("No account has been created yet.");
             return;
         }
 
         showMessage(
-            "For this demo, password recovery must be handled by the website administrator.",
+            "Password recovery will be added later.",
             "success"
         );
 
     });
-
-}
-
-
-// ==========================================
-// HOME PAGE USER SYSTEM
-// ==========================================
-
-// Get currently logged-in user
-const currentUser = localStorage.getItem("currentUser");
-
-
-// ------------------------------------------
-// DISPLAY USER NAME ON HOME PAGE
-// ------------------------------------------
-
-if (currentUser) {
-
-    const user = JSON.parse(currentUser);
-
-    // Find username element on home page
-    const usernameElements = document.querySelectorAll(".logged-user-name");
-
-    usernameElements.forEach(element => {
-        element.textContent = user.name;
-    });
-
-}
-
-
-// ------------------------------------------
-// LOGOUT
-// ------------------------------------------
-
-const logoutButtons = document.querySelectorAll(".logout-btn");
-
-logoutButtons.forEach(button => {
-
-    button.addEventListener("click", function () {
-
-        localStorage.removeItem("currentUser");
-
-        window.location.href = "login.html";
-
-    });
-
-});
-
-
-// ------------------------------------------
-// PROTECT HOME PAGE
-// ------------------------------------------
-
-// Only run this part on index.html
-if (
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname.endsWith("/")
-) {
-
-    if (!currentUser) {
-
-        // User is not logged in
-        window.location.href = "login.html";
-
-    }
-
-}
