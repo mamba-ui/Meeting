@@ -1,359 +1,194 @@
-// =========================================
-// ELEMENTS
-// =========================================
+```javascript
+// ==============================
+// MEETING LOGIN JAVASCRIPT
+// ==============================
 
+
+// GET ELEMENTS
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 
-const loginTab = document.getElementById("loginTab");
-const signupTab = document.getElementById("signupTab");
-
-const goSignup = document.getElementById("goSignup");
-const goLogin = document.getElementById("goLogin");
+const title = document.getElementById("title");
+const subtitle = document.getElementById("subtitle");
 
 const message = document.getElementById("message");
 
 
-// =========================================
-// MESSAGE
-// =========================================
-
-function showMessage(text, type = "") {
-
-    message.textContent = text;
-    message.className = "message";
-
-    if (type) {
-        message.classList.add(type);
-    }
-}
-
-
-// =========================================
-// SHOW LOGIN
-// =========================================
-
-function showLogin() {
-
-    loginForm.classList.remove("hidden");
-    signupForm.classList.add("hidden");
-
-    loginTab.classList.add("active");
-    signupTab.classList.remove("active");
-
-    showMessage("");
-}
-
-
-// =========================================
-// SHOW SIGNUP
-// =========================================
+// ==============================
+// SHOW SIGN UP
+// ==============================
 
 function showSignup() {
 
-    signupForm.classList.remove("hidden");
     loginForm.classList.add("hidden");
 
-    signupTab.classList.add("active");
-    loginTab.classList.remove("active");
+    signupForm.classList.remove("hidden");
 
-    showMessage("");
+    title.textContent = "Create Account";
+
+    subtitle.textContent =
+        "Join the Meeting community";
+
+    message.style.display = "none";
 }
 
 
-// =========================================
-// TAB EVENTS
-// =========================================
+// ==============================
+// SHOW LOGIN
+// ==============================
 
-loginTab.addEventListener("click", showLogin);
+function showLogin() {
 
-signupTab.addEventListener("click", showSignup);
+    signupForm.classList.add("hidden");
 
-goSignup.addEventListener("click", showSignup);
+    loginForm.classList.remove("hidden");
 
-goLogin.addEventListener("click", showLogin);
+    title.textContent = "Welcome Back";
 
+    subtitle.textContent =
+        "Login to continue to Meeting";
 
-// =========================================
-// SHOW/HIDE PASSWORD
-// =========================================
-
-document.querySelectorAll(".password-toggle").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        const target = document.getElementById(
-            button.dataset.target
-        );
-
-        if (target.type === "password") {
-
-            target.type = "text";
-            button.textContent = "🙈";
-
-        } else {
-
-            target.type = "password";
-            button.textContent = "👁";
-
-        }
-
-    });
-
-});
+    message.style.display = "none";
+}
 
 
-// =========================================
-// CREATE ACCOUNT
-// =========================================
+// ==============================
+// SHOW / HIDE PASSWORD
+// ==============================
 
-signupForm.addEventListener("submit", (event) => {
+function showPassword(id) {
 
-    event.preventDefault();
+    const input = document.getElementById(id);
 
-    const name =
-        document.getElementById("signupName").value.trim();
+    if (input.type === "password") {
 
-    const phone =
-        document.getElementById("signupPhone").value.trim();
+        input.type = "text";
 
-    const password =
-        document.getElementById("signupPassword").value;
+    } else {
 
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
+        input.type = "password";
 
-    const terms =
-        document.getElementById("terms").checked;
-
-
-    // CHECK NAME
-    if (name.length < 2) {
-
-        showMessage(
-            "Please enter your full name.",
-            "error"
-        );
-
-        return;
     }
+}
 
 
-    // CHECK PHONE
-    if (!/^[0-9]{9,15}$/.test(phone)) {
+// ==============================
+// MESSAGE
+// ==============================
 
-        showMessage(
-            "Please enter a valid telephone number.",
-            "error"
-        );
+function showMessage(text) {
 
-        return;
-    }
+    message.style.display = "block";
 
-
-    // CHECK PASSWORD
-    if (password.length < 6) {
-
-        showMessage(
-            "Password must contain at least 6 characters.",
-            "error"
-        );
-
-        return;
-    }
+    message.textContent = text;
+}
 
 
-    // CHECK PASSWORD MATCH
-    if (password !== confirmPassword) {
-
-        showMessage(
-            "Passwords do not match.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // CHECK TERMS
-    if (!terms) {
-
-        showMessage(
-            "Please agree to the Terms & Conditions.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // CHECK EXISTING ACCOUNT
-    const existingAccount =
-        localStorage.getItem("meetingAccount");
-
-    if (existingAccount) {
-
-        const account =
-            JSON.parse(existingAccount);
-
-        if (account.phone === phone) {
-
-            showMessage(
-                "This telephone number is already registered.",
-                "error"
-            );
-
-            return;
-        }
-    }
-
-
-    // CREATE ACCOUNT
-    const account = {
-        name: name,
-        phone: phone,
-        password: password
-    };
-
-
-    // SAVE ACCOUNT
-    localStorage.setItem(
-        "meetingAccount",
-        JSON.stringify(account)
-    );
-
-
-    showMessage(
-        "Account created successfully! Please login.",
-        "success"
-    );
-
-
-    signupForm.reset();
-
-
-    // PUT PHONE IN LOGIN FORM
-    setTimeout(() => {
-
-        showLogin();
-
-        document.getElementById("loginPhone").value = phone;
-
-    }, 1000);
-
-});
-
-
-// =========================================
+// ==============================
 // LOGIN
-// =========================================
+// ==============================
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-
     const phone =
-        document.getElementById("loginPhone").value.trim();
+        document.getElementById("loginPhone").value;
 
     const password =
         document.getElementById("loginPassword").value;
 
 
-    // GET ACCOUNT
-    const savedAccount =
-        localStorage.getItem("meetingAccount");
+    if (phone === "" || password === "") {
 
-
-    // NO ACCOUNT
-    if (!savedAccount) {
-
-        showMessage(
-            "No account found. Please create an account first.",
-            "error"
-        );
+        showMessage("Please fill in all fields.");
 
         return;
     }
 
 
-    const account =
-        JSON.parse(savedAccount);
-
-
-    // CHECK PHONE
-    if (phone !== account.phone) {
-
-        showMessage(
-            "Telephone number is incorrect.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // CHECK PASSWORD
-    if (password !== account.password) {
-
-        showMessage(
-            "Password is incorrect.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // SAVE CURRENT USER
-    localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-            name: account.name,
-            phone: account.phone
-        })
-    );
-
-
-    showMessage(
-        "Login successful! Welcome " + account.name + "!",
-        "success"
-    );
-
-
-    // GO TO HOME PAGE
-    setTimeout(() => {
-
-        window.location.href = "index.html";
-
-    }, 800);
+    showMessage("Login successful! Welcome to Meeting.");
 
 });
 
 
-// =========================================
-// FORGOT PASSWORD
-// =========================================
+// ==============================
+// CREATE ACCOUNT
+// ==============================
 
-document.getElementById("forgotPassword")
-    .addEventListener("click", () => {
+signupForm.addEventListener("submit", function(event) {
 
-        const account =
-            localStorage.getItem("meetingAccount");
+    event.preventDefault();
 
-        if (!account) {
 
-            showMessage(
-                "No account has been created yet.",
-                "error"
-            );
+    const name =
+        document.getElementById("name").value;
 
-            return;
-        }
+    const phone =
+        document.getElementById("phone").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirm =
+        document.getElementById("confirm").value;
+
+
+    if (password !== confirm) {
+
+        showMessage("Passwords do not match.");
+
+        return;
+    }
+
+
+    if (password.length < 6) {
 
         showMessage(
-            "Password recovery will be added later.",
-            "success"
+            "Password must contain at least 6 characters."
         );
 
-    });
+        return;
+    }
+
+
+    showMessage(
+        "Account created successfully! Welcome, " + name + "."
+    );
+
+});
+
+
+// ==============================
+// FORGOT PASSWORD
+// ==============================
+
+function forgotPassword() {
+
+    const phone = prompt(
+        "Enter your telephone number:"
+    );
+
+    if (phone) {
+
+        alert(
+            "Password recovery instructions will be sent to " +
+            phone
+        );
+
+    }
+}
+
+
+// ==============================
+// GUEST LOGIN
+// ==============================
+
+function guestLogin() {
+
+    alert(
+        "Welcome to Meeting! You are continuing as a guest."
+    );
+
+}
+```
