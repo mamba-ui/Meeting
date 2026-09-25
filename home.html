@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meeting — Connect. Talk. Belong.</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">M</span>
+            <span>Meeting</span>
+        </div>
+
+        <nav id="navMenu">
+            <a href="#home">Home</a>
+            <a href="#people">People</a>
+            <a href="#rooms">Rooms</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-buttons">
+            <button class="login-btn" onclick="showMessage('Login page coming soon!')">
+                Log in
+            </button>
+
+            <button class="signup-btn" onclick="showMessage('Create account page coming soon!')">
+                Create account
+            </button>
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ✨ A place where people connect
+            </div>
+
+            <h1>
+                Meet people.<br>
+                <span>Share ideas.</span><br>
+                Build connections.
+            </h1>
+
+            <p>
+                Meeting is a simple place where people discover others,
+                join conversations, create rooms and build meaningful
+                connections.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="startMeeting()">
+                    Get Started →
+                </button>
+
+                <button class="secondary-btn" onclick="scrollToRooms()">
+                    Explore Rooms
+                </button>
+            </div>
+
+            <div class="online-info">
+                <div class="avatars">
+                    <div class="avatar">A</div>
+                    <div class="avatar">J</div>
+                    <div class="avatar">K</div>
+                    <div class="avatar">S</div>
+                    <div class="avatar">+</div>
+                </div>
+
+                <div>
+                    <strong>People are meeting now</strong>
+                    <small>Join conversations around you</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- HERO CARD -->
+        <div class="hero-card">
+
+            <div class="card-top">
+                <div>
+                    <span class="status-dot"></span>
+                    Live meeting
+                </div>
+
+                <span class="three-dots">•••</span>
+            </div>
+
+            <h3>Future Leaders</h3>
+
+            <p class="card-description">
+                Talk about ideas, opportunities and building your future.
+            </p>
+
+            <div class="participants">
+                <div class="participant">D</div>
+                <div class="participant">M</div>
+                <div class="participant">R</div>
+                <div class="participant">T</div>
+
+                <span>+28 people</span>
+            </div>
+
+            <button class="join-btn" onclick="joinRoom('Future Leaders')">
+                Join Room
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="features-section" id="people">
+
+        <div class="section-heading">
+            <span class="small-title">WHY MEETING?</span>
+            <h2>Everything you need to connect.</h2>
+            <p>
+                Find people, start conversations and create spaces where
+                ideas can grow.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon people-icon">👤</div>
+                <h3>Discover People</h3>
+                <p>
+                    Meet new people and connect with others who share
+                    your interests.
+                </p>
+                <a href="#">Discover people →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon chat-icon">💬</div>
+                <h3>Chat Together</h3>
+                <p>
+                    Send messages and have real conversations with
+                    people from different places.
+                </p>
+                <a href="#">Start chatting →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon room-icon">🌍</div>
+                <h3>Join Rooms</h3>
+                <p>
+                    Explore public rooms and join discussions that
+                    interest you.
+                </p>
+                <a href="#rooms">Explore rooms →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon create-icon">➕</div>
+                <h3>Create a Meeting</h3>
+                <p>
+                    Make your own room and invite people to discuss
+                    your favorite topics.
+                </p>
+                <a href="#">Create room →</a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ROOMS -->
+    <section class="rooms-section" id="rooms">
+
+        <div class="rooms-heading">
+            <div>
+                <span class="small-title">POPULAR ROOMS</span>
+                <h2>What's happening now?</h2>
+            </div>
+
+            <button class="view-all-btn" onclick="showMessage('All rooms page coming soon!')">
+                View all →
+            </button>
+        </div>
+
+
+        <div class="rooms-grid">
+
+            <div class="room-card">
+
+                <div class="room-image technology">
+                    💻
+                </div>
+
+                <div class="room-content">
+                    <span class="room-category">TECHNOLOGY</span>
+
+                    <h3>Future of Technology</h3>
+
+                    <p>
+                        Discuss AI, programming and the future of technology.
+                    </p>
+
+                    <div class="room-bottom">
+                        <span>👥 124 people</span>
+
+                        <button onclick="joinRoom('Future of Technology')">
+                            Join
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="room-card">
+
+                <div class="room-image education">
+                    🎓
+                </div>
+
+                <div class="room-content">
+                    <span class="room-category">EDUCATION</span>
+
+                    <h3>Student Life</h3>
+
+                    <p>
+                        Share experiences, opportunities and student ideas.
+                    </p>
+
+                    <div class="room-bottom">
+                        <span>👥 86 people</span>
+
+                        <button onclick="joinRoom('Student Life')">
+                            Join
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="room-card">
+
+                <div class="room-image business">
+                    💡
+                </div>
+
+                <div class="room-content">
+                    <span class="room-category">BUSINESS</span>
+
+                    <h3>Young Entrepreneurs</h3>
+
+                    <p>
+                        Share business ideas and learn from other young
+                        entrepreneurs.
+                    </p>
+
+                    <div class="room-bottom">
+                        <span>👥 63 people</span>
+
+                        <button onclick="joinRoom('Young Entrepreneurs')">
+                            Join
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT / CTA -->
+    <section class="cta-section" id="about">
+
+        <div class="cta-content">
+
+            <span class="small-title">YOUR COMMUNITY STARTS HERE</span>
+
+            <h2>
+                One conversation can<br>
+                change everything.
+            </h2>
+
+            <p>
+                Create your account and start discovering people,
+                conversations and rooms today.
+            </p>
+
+            <button class="primary-btn" onclick="startMeeting()">
+                Join Meeting →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon">M</span>
+                    <span>Meeting</span>
+                </div>
+
+                <p>
+                    Connect. Talk. Share. Belong.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#people">People</a>
+                <a href="#rooms">Rooms</a>
+                <a href="#about">About</a>
+                <a href="#">Contact</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Meeting. All rights reserved.</p>
+
+            <p>Made for people who love connecting.</p>
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
