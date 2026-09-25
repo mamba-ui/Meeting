@@ -1,13 +1,15 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Meeting | Login</title>
+    <title>Meeting | Connect With People</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="login.css">
@@ -15,39 +17,91 @@
 
 <body>
 
-    <div class="background-shape shape-one"></div>
-    <div class="background-shape shape-two"></div>
-    <div class="background-shape shape-three"></div>
+    <!-- Animated Background -->
+    <div class="background">
 
-    <main class="auth-wrapper">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-gold"></div>
+        <div class="glow glow-blue-two"></div>
 
-        <!-- BRAND -->
-        <div class="brand">
-            <div class="brand-logo">M</div>
+        <div class="circle circle-one"></div>
+        <div class="circle circle-two"></div>
+        <div class="circle circle-three"></div>
 
-            <h1>Meeting</h1>
-
-            <p>Connect. Talk. Meet.</p>
-        </div>
+    </div>
 
 
-        <!-- AUTH CARD -->
-        <div class="auth-card">
+    <!-- Main Container -->
+    <main class="auth-container">
 
-            <!-- TABS -->
-            <div class="tabs">
-                <button class="tab active" id="loginTab">
-                    Login
-                </button>
+        <!-- LEFT / BRAND SECTION -->
+        <section class="brand-section">
 
-                <button class="tab" id="signupTab">
-                    Create Account
-                </button>
+            <div class="brand-logo">
+                M
             </div>
 
+            <h1>
+                Meeting
+            </h1>
 
-            <!-- MESSAGE -->
-            <div id="message" class="message"></div>
+            <p class="tagline">
+                Connect. Talk. Meet.
+            </p>
+
+            <p class="description">
+                Meet new people, join interesting conversations,
+                create rooms and build meaningful connections.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+                    <span class="feature-icon">👥</span>
+                    <div>
+                        <strong>Meet People</strong>
+                        <small>Discover new connections</small>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">💬</span>
+                    <div>
+                        <strong>Chat Together</strong>
+                        <small>Talk and share ideas</small>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <span class="feature-icon">🌍</span>
+                    <div>
+                        <strong>Join Rooms</strong>
+                        <small>Be part of interesting meetings</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGIN CARD -->
+        <section class="auth-card">
+
+            <div class="card-header">
+
+                <div class="mini-logo">
+                    M
+                </div>
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Login to continue to Meeting
+                </p>
+
+            </div>
 
 
             <!-- LOGIN FORM -->
@@ -60,6 +114,7 @@
                     </label>
 
                     <div class="input-box">
+
                         <span>📱</span>
 
                         <input
@@ -68,6 +123,7 @@
                             placeholder="0781234567"
                             required
                         >
+
                     </div>
 
                 </div>
@@ -93,8 +149,7 @@
                         <button
                             type="button"
                             class="password-toggle"
-                            data-target="loginPassword"
-                        >
+                            data-target="loginPassword">
                             👁
                         </button>
 
@@ -106,44 +161,87 @@
                 <div class="form-options">
 
                     <label class="remember">
+
                         <input
                             type="checkbox"
                             id="rememberMe"
                         >
 
                         <span>Remember me</span>
+
                     </label>
 
                     <button
                         type="button"
-                        class="forgot"
                         id="forgotPassword"
-                    >
+                        class="forgot">
                         Forgot password?
                     </button>
 
                 </div>
 
 
-                <button type="submit" class="main-button">
-                    Login
-                    <span>→</span>
+                <div
+                    id="message"
+                    class="message">
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="main-button">
+
+                    <span>Login to Meeting</span>
+
+                    <strong>→</strong>
+
                 </button>
 
 
-                <div class="switch-text">
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="guest-button">
+
+                    Continue as Guest
+
+                </button>
+
+
+                <p class="signup-text">
+
                     Don't have an account?
 
-                    <button type="button" id="goSignup">
-                        Create one
+                    <button
+                        type="button"
+                        id="goSignup">
+                        Create Account
                     </button>
-                </div>
+
+                </p>
 
             </form>
 
 
             <!-- SIGN UP FORM -->
-            <form id="signupForm" class="hidden">
+            <form
+                id="signupForm"
+                class="hidden">
+
+                <div class="card-header">
+
+                    <h2>Create Account</h2>
+
+                    <p>
+                        Join the Meeting community
+                    </p>
+
+                </div>
+
 
                 <div class="input-group">
 
@@ -209,8 +307,7 @@
                         <button
                             type="button"
                             class="password-toggle"
-                            data-target="signupPassword"
-                        >
+                            data-target="signupPassword">
                             👁
                         </button>
 
@@ -239,8 +336,7 @@
                         <button
                             type="button"
                             class="password-toggle"
-                            data-target="confirmPassword"
-                        >
+                            data-target="confirmPassword">
                             👁
                         </button>
 
@@ -259,39 +355,68 @@
 
                     <span>
                         I agree to the
-                        <a href="#">Terms & Conditions</a>
+                        <a href="#">
+                            Terms & Conditions
+                        </a>
                     </span>
 
                 </label>
 
 
-                <button type="submit" class="main-button">
-                    Create Account
-                    <span>→</span>
+                <button
+                    type="submit"
+                    class="main-button">
+
+                    <span>Create My Account</span>
+
+                    <strong>→</strong>
+
                 </button>
 
 
-                <div class="switch-text">
+                <p class="signup-text">
+
                     Already have an account?
 
-                    <button type="button" id="goLogin">
+                    <button
+                        type="button"
+                        id="goLogin">
                         Login
                     </button>
-                </div>
+
+                </p>
 
             </form>
 
-        </div>
-
-
-        <footer>
-            © 2026 Meeting. Connect with people around you.
-        </footer>
+        </section>
 
     </main>
+
+
+    <footer>
+
+        © 2026 Meeting · Connect with people around you.
+
+    </footer>
 
 
     <script src="login.js"></script>
 
 </body>
 </html>
+```
+
+This version gives you the **structure** for the new design. The real Instagram-like visual effect will come from the CSS.
+
+Next, use a `login.css` with:
+
+* 🔵 Deep blue background
+* ✨ Gold glowing effects
+* 🪟 Glassmorphism login card
+* 💙 Blue/gold gradient buttons
+* 🌟 Animated background circles
+* 📱 Responsive mobile design
+* 🔐 Modern input fields
+* Smooth login/signup transitions
+
+I can give you that **full `login.css` next**, followed by the JavaScript.
