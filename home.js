@@ -1,85 +1,193 @@
-// =============================
-// MOBILE MENU
-// =============================
-
-function toggleMenu() {
-    const nav = document.getElementById("navMenu");
-    nav.classList.toggle("active");
-}
+```javascript
+// =====================================
+// MEETING HOME PAGE
+// =====================================
 
 
-// =============================
-// START MEETING
-// =============================
-
-function startMeeting() {
-    showMessage("Welcome to Meeting! Create an account to get started.");
-}
+// SEARCH
+const searchInput =
+    document.getElementById("searchInput");
 
 
-// =============================
-// JOIN ROOM
-// =============================
+searchInput.addEventListener("input", function () {
 
-function joinRoom(roomName) {
-    showMessage("You selected the " + roomName + " room.");
-}
+    const value =
+        searchInput.value.toLowerCase();
 
+    const people =
+        document.querySelectorAll(".person");
 
-// =============================
-// SCROLL TO ROOMS
-// =============================
-
-function scrollToRooms() {
-    document.getElementById("rooms").scrollIntoView({
-        behavior: "smooth"
-    });
-}
+    const rooms =
+        document.querySelectorAll(".room");
 
 
-// =============================
-// MESSAGE POPUP
-// =============================
+    people.forEach(function (person) {
 
-function showMessage(message) {
+        const text =
+            person.innerText.toLowerCase();
 
-    const existingMessage = document.querySelector(".custom-message");
+        if (text.includes(value)) {
 
-    if (existingMessage) {
-        existingMessage.remove();
-    }
+            person.style.display = "";
 
-    const messageBox = document.createElement("div");
+        } else {
 
-    messageBox.className = "custom-message";
+            person.style.display = "none";
 
-    messageBox.innerHTML = `
-        <div class="message-content">
-            <span>${message}</span>
-            <button onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
-    `;
-
-    document.body.appendChild(messageBox);
-
-    setTimeout(() => {
-        if (messageBox) {
-            messageBox.remove();
         }
-    }, 3500);
-}
+
+    });
 
 
-// =============================
-// CLOSE MOBILE MENU
-// =============================
+    rooms.forEach(function (room) {
 
-document.querySelectorAll("#navMenu a").forEach(link => {
+        const text =
+            room.innerText.toLowerCase();
 
-    link.addEventListener("click", () => {
+        if (text.includes(value)) {
 
-        document.getElementById("navMenu").classList.remove("active");
+            room.style.display = "";
+
+        } else {
+
+            room.style.display = "none";
+
+        }
 
     });
 
 });
+
+
+
+// =====================================
+// CONNECT BUTTONS
+// =====================================
+
+const connectButtons =
+    document.querySelectorAll(".person button");
+
+
+connectButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        if (button.innerText === "Connect") {
+
+            button.innerText = "Connected";
+
+            button.style.background = "#23c878";
+
+            button.style.color = "white";
+
+            button.style.borderColor = "#23c878";
+
+        } else {
+
+            button.innerText = "Connect";
+
+            button.style.background = "";
+
+            button.style.color = "";
+
+            button.style.borderColor = "";
+
+        }
+
+    });
+
+});
+
+
+
+// =====================================
+// JOIN ROOM
+// =====================================
+
+const joinButtons =
+    document.querySelectorAll(".join");
+
+
+joinButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        const room =
+            button.parentElement
+            .querySelector("h3")
+            .innerText;
+
+        alert(
+            "You are joining: " + room
+        );
+
+    });
+
+});
+
+
+
+// =====================================
+// CREATE MEETING
+// =====================================
+
+const createButtons =
+    document.querySelectorAll(".create button");
+
+
+createButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        alert(
+            "Create Meeting page coming next!"
+        );
+
+    });
+
+});
+
+
+
+// =====================================
+// NAVIGATION
+// =====================================
+
+const navItems =
+    document.querySelectorAll(".nav-item");
+
+
+navItems.forEach(function (item) {
+
+    item.addEventListener("click", function () {
+
+        navItems.forEach(function (nav) {
+
+            nav.classList.remove("active");
+
+        });
+
+        item.classList.add("active");
+
+    });
+
+});
+
+
+
+// =====================================
+// NOTIFICATION
+// =====================================
+
+const notification =
+    document.querySelector(".icon-button");
+
+
+notification.addEventListener("click", function () {
+
+    alert(
+        "You have 3 new notifications."
+    );
+
+});
+```
